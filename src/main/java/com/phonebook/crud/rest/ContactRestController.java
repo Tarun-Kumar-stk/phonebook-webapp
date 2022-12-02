@@ -53,8 +53,20 @@ public class ContactRestController {
 	}
 	
 	@GetMapping
-	public List<Contact> findAllContacts(){
-		return service.getAllContacts();
+	public ResponseEntity<?> findAllContacts(){
+		logger.debug("** findAllContacts() - Execution started **" );
+		List<Contact> contacts = null;
+		try {
+			contacts = service.getAllContacts();
+			if(contacts.isEmpty()) {
+				logger.info("** findAllContacts() - No contacts found in the DB **" );
+			}
+		}
+		catch(Exception e) {
+			logger.error("** findAllContacts() - Exception occured: **" + e.getMessage());
+		}
+		logger.debug("** findAllContacts() - Execution completed **" );
+		return new ResponseEntity<>("", HttpStatus.OK);
 	}
 	
 	@GetMapping("/{theId}")
