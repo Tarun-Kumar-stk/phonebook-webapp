@@ -121,6 +121,10 @@
 							<goal>check</goal>
 						</goals>
 						<configuration>
+							<excludes>
+								<exclude>**/com/phonebook/crud/entity/**</exclude>
+								<exclude>**com/phonebook/crud/Application.class</exclude>
+							</excludes>
 							<rules>
 								<rule>
 									<element>PACKAGE</element>

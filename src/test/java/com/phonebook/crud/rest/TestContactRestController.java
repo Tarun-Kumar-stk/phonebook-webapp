@@ -131,9 +131,21 @@ public class TestContactRestController {
 		
 	}
 	
+	// Case for checking list of contacts
 	@Test
-	public void testFindAllContacts() throws Exception {
+	public void testFindAllContacts_1() throws Exception {
 		when(contactService.getAllContacts()).thenReturn(Collections.emptyList());
+		MockHttpServletRequestBuilder reqBuilder = MockMvcRequestBuilders.get("/api/contacts");
+		MvcResult mvcResult = mockMvc.perform(reqBuilder).andReturn();
+		MockHttpServletResponse response = mvcResult.getResponse();
+		int status = response.getStatus();
+		assertEquals(200, status);
+	}
+	
+	// Case for throwing exception
+	@Test
+	public void testFindAllContacts_2() throws Exception {
+		when(contactService.getAllContacts()).thenThrow(RuntimeException.class);
 		MockHttpServletRequestBuilder reqBuilder = MockMvcRequestBuilders.get("/api/contacts");
 		MvcResult mvcResult = mockMvc.perform(reqBuilder).andReturn();
 		MockHttpServletResponse response = mvcResult.getResponse();
